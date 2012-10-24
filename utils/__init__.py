@@ -26,6 +26,6 @@ def class_methods_to_functions(instance,module_name):
 
 def copy_keys(dict1,dict2):
     """
-    copy keys fork one dictionary to another
+    copy keys from one dictionary to another
     """
     for key in dict2.keys(): dict1[key] = dict2[key]
