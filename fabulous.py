@@ -1,6 +1,6 @@
+from pdb import set_trace as brake
 from fabric.api import env,run,sudo
-from fabdeploy.deploy import utils
-
+from fabdeploy import utils
 from fabdeploy.apache import _ApacheSetup
 from fabdeploy.database import _DatabaseSetup
 from fabdeploy.git import _GitSuite,_GitHubHandler
@@ -14,11 +14,10 @@ conf_path = ''.join([env.base,'/fabdeploy/config/fab_conf.example'])
 
 import json
 config = json.loads(open(conf_path).read())
-def env_setter(step):
+def env_setter():
     """
-    set the enviroment variables based on the step config.
+    set the enviroment.
     """
-    env.step = step
     utils.copy_keys(env,config[env.step])
     utils.copy_keys(env,config['globals'])
 
@@ -27,10 +26,12 @@ class _Roles(object):
     set the roles for dev, stagging and production
     """
     def __init__(self):
+        from types import MethodType
         steps = ['dev','stage','prod']
         for step in steps:
-            step_setter = env_setter(step)
-            setattr(self,step,step_setter)
+            env.step = step
+            method = MethodType(env_setter,self,self.__class__)
+            setattr(self,step,method)
 
 class _Deploy(object):
     """
@@ -59,30 +60,29 @@ class _Deploy(object):
         git.remote_pull()
         wapp.install_requirements()
 
-    #TODO
-#    def maintenance_up():
-#        """
-#        Install the Apache maintenance configuration.
-#        """
-#        run('cp %(repo_path)s/%(project_name)s/configs/%(settings)s/%(project_name)s_maintenance %(apache_config_path)s' % env)
-#        reboot()
-#
-#    def maintenance_down():
-#        """
-#        Reinstall the normal site configuration.
-#        """
-#        install_apache_conf()
-#        reboot()
+   #TODO
+    def maintenance_up():
+        """
+        Install the Apache maintenance configuration.
+        """
+        run('cp %(repo_path)s/%(project_name)s/configs/%(settings)s/%(project_name)s_maintenance %(apache_config_path)s' % env)
+        reboot()
 
-instances = [_Roles(),
-             _DatabaseSetup(),
-             _VirtualenvWrapperSetup(),
-             _ApacheSetup(),
-             _WebAppSetup(),
-             _Deploy(),
-             _WebApp(),
-             _GitSuite(),
-             _GitHubHandler(),]
+    def maintenance_down():
+        """
+        Reinstall the normal site configuration.
+        """
+        install_apache_conf()
+        reboot()
 
-for instance in instances:
-    utils.class_methods_to_functions(instance,__name__) 
+def load_instances():
+    instances = [_Roles(),
+                _DatabaseSetup(),
+                _VirtualenvWrapperSetup(),
+                _ApacheSetup(),
+                _WebAppSetup(),
+                _Deploy(),
+                _WebApp(),
+                _GitSuite(),
+                _GitHubHandler(),]
+    return utils.class_methods_to_functions, instances
