@@ -1,4 +1,4 @@
-from deploy.virtualenv import _VirtualenvWrapperSetup, with_virtualenv
+from fabdeploy.virtualenv import _VirtualenvWrapperSetup, with_virtualenv
 from fabric.api import cd,sudo,settings,run
 class _WebAppSetup(object):
     """

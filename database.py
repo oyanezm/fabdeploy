@@ -5,7 +5,7 @@ from django.conf import settings as django_settings
 #TODO: put this validation somewhere else
 # avoids "fab -l" to fail.
 if('settings_package' not in env):
-    from deploy.lib.helper import _AttrDict
+    from fabdeploy.lib.helper import _AttrDict
     django_settings = _AttrDict(DB_USER = '',
                                 DB_PASSWORD = '',
                                 DB_NAME = '')

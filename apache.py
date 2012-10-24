@@ -1,7 +1,7 @@
-from deploy.lib.helper import _AttrDict, _is_host
+from fabdeploy.lib.helper import _AttrDict, _is_host
 from fabric.api import settings,run,sudo 
 from fabric.contrib import files
-from deploy.servers import _Alwaysdata
+from fabdeploy.servers import _Alwaysdata
 
 class _ApacheSetup(object):
     """

@@ -1,4 +1,4 @@
-from deploy.lib.helper import _AttrDict
+from fabdeploy.lib.helper import _AttrDict
 from fabric.api import settings,run
 from fabric.contrib import files
 
