@@ -2,7 +2,7 @@ import inspect
 import sys
 
 # taken from http://www.saltycrane.com/blog/2010/09/class-based-fabric-scripts-metaprogramming-hack/
-def class_methods_to_functions(instance, module_name):
+def class_methods_to_functions(instance,module_name):
     '''
     Utility to take the methods of the instance of a class, instance,
     and add them as functions to a module, module_name, so that Fabric
@@ -17,7 +17,7 @@ def class_methods_to_functions(instance, module_name):
     for method in inspect.getmembers(instance, predicate=inspect.ismethod):
         method_name, method_obj = method
 
-        if not method_name.startswith('_'):
+        if not method_name.startswith('_') and not method_name in ['dev','stage','prod']:
             # get the bound method
             func = getattr(instance, method_name)
 
