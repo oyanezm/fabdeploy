@@ -1,16 +1,16 @@
 from fabric.api import env,run,sudo
-from deploy import utils
+from fabdeploy.deploy import utils
 
-from deploy.apache import _ApacheSetup
-from deploy.database import _DatabaseSetup
-from deploy.git import _GitSuite,_GitHubHandler
-from deploy.virtualenv import _VirtualenvWrapperSetup,with_virtualenv
-from deploy.webapp import _WebAppSetup, _WebApp
+from fabdeploy.apache import _ApacheSetup
+from fabdeploy.database import _DatabaseSetup
+from fabdeploy.git import _GitSuite,_GitHubHandler
+from fabdeploy.virtualenv import _VirtualenvWrapperSetup,with_virtualenv
+from fabdeploy.webapp import _WebAppSetup, _WebApp
 
 import sys,os
 env.base = os.getcwd()
 sys.path.append(env.base)
-conf_path = ''.join([env.base,'/fab-deploy/config/fab_conf.example'])
+conf_path = ''.join([env.base,'/fabdeploy/config/fab_conf.example'])
 
 import json
 config = json.loads(open(conf_path).read())
