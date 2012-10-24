@@ -1,0 +1,45 @@
+{
+    "globals" : {
+        "admin" : "foo@bar.com",
+        "project_name" : "foobar",
+        "settings_package" : "foobar.config.settings",
+        "modules_path" : "~/.local",
+        "bash_profile" : "~/.bash_profile"
+    },
+    "dev" : {
+        "hosts" : ["localhost"],
+        "server": "foobar.com",
+        "password" : "psw",
+        "home" : "/home/user/",
+        "path" : "/home/user/to/project/",
+        "wsgi_path" : "/home/user/to/project/config/django.wsgi",
+        "vhost_path" : "/to/apache/default",
+        "modules_path" :"/usr/local/bin", 
+        "conf_template" : "/home/user/deploy/config/localhost.conf",
+        "use_sudo" : true
+            },
+    "stage" : {
+        "hosts" : [""],
+        "server" : "",
+        "password" : "",
+        "home" : "",
+        "path" : "",
+        "wsgi_path" : "/home/user/to/project/config/",
+        "vhost_path" : "",
+        "modules_path" : "/home/user/.local/", 
+        "conf_template" : "",
+        "use_sudo" : false
+            },
+    "prod" :  { 
+        "hosts" : [""],
+        "server" : "",
+        "password" : "",
+        "home" : "",
+        "path" : "",
+        "wsgi_path" : "",
+        "vhost_path" : "",
+        "modules_path" : "", 
+        "conf_template" : "",
+        "use_sudo" : false
+          }
+}
