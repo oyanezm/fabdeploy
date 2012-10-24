@@ -9,6 +9,7 @@ add to fabfile.py:
 ```python
 from fabdeploy import fabulous
 from fabdeploy import utils
+#bound to the current module
 loader, instances = fabulous.load_instances()
 for inst in instances:
     loader(inst,__name__)
