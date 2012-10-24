@@ -10,7 +10,7 @@ from deploy.webapp import _WebAppSetup, _WebApp
 import sys,os
 env.base = os.getcwd()
 sys.path.append(env.base)
-conf_path = ''.join([env.base,'/deploy/config/fab_conf.example'])
+conf_path = ''.join([env.base,'/fab-deploy/config/fab_conf.example'])
 
 import json
 config = json.loads(open(conf_path).read())
