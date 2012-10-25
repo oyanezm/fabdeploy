@@ -10,11 +10,11 @@ from fabdeploy.webapp import _WebAppSetup, _WebApp
 import sys,os
 env.base = os.getcwd()
 sys.path.append(env.base)
-conf_path = ''.join([env.base,'/fabdeploy/config/fab_conf.example'])
+conf_path = ''.join([env.base,'/fabdeploy/config/fab_conf.json'])
 
 import json
 config = json.loads(open(conf_path).read())
-def env_setter():
+def env_setter(args):
     """
     set the enviroment.
     """
