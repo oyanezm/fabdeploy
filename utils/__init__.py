@@ -17,7 +17,7 @@ def class_methods_to_functions(instance,module_name):
     for method in inspect.getmembers(instance, predicate=inspect.ismethod):
         method_name, method_obj = method
 
-        if not method_name.startswith('_') and not method_name in ['dev','stage','prod']:
+        if not method_name.startswith('_'):
             # get the bound method
             func = getattr(instance, method_name)
 
