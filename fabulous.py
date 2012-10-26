@@ -14,12 +14,16 @@ conf_path = ''.join([env.base,'/fabdeploy/config/fab_conf.json'])
 
 import json
 config = json.loads(open(conf_path).read())
-def env_setter(args):
+
+def env_setter(step):
     """
     set the enviroment.
     """
-    utils.copy_keys(env,config[env.step])
-    utils.copy_keys(env,config['globals'])
+    def set_in_scope(args):
+        env.step = step
+        utils.copy_keys(env,config[env.step])
+        utils.copy_keys(env,config['globals'])
+    return set_in_scope
 
 class _Roles(object):
     """
@@ -29,8 +33,8 @@ class _Roles(object):
         from types import MethodType
         steps = ['dev','stage','prod']
         for step in steps:
-            env.step = step
-            method = MethodType(env_setter,self,self.__class__)
+            funcs = env_setter(step)
+            method = MethodType(funcs,self,self.__class__)
             setattr(self,step,method)
 
 class _Deploy(object):
