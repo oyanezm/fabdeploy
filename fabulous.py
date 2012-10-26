@@ -17,7 +17,7 @@ config = json.loads(open(conf_path).read())
 
 def env_setter(step):
     """
-    set the enviroment.
+    closure that sets the enviroment.
     """
     def set_in_scope(args):
         env.step = step
