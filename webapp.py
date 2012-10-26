@@ -1,5 +1,5 @@
 from fabdeploy.virtualenv import _VirtualenvWrapperSetup, with_virtualenv
-from fabric.api import cd,sudo,settings,run
+from fabric.api import cd,sudo,settings,run,env,local
 class _WebAppSetup(object):
     """
     holds methods for setting up and deploying a web application.
