@@ -1,7 +1,7 @@
 fab-deploy
 ==========
 
-Deployment App based on Fabric
+Deployment App based on Fabric. Early Development not properly tested yet.
 
 install
 =======
