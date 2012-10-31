@@ -67,7 +67,8 @@ class _GitHubHandler(object):
         """
         generates the ssh key
         """
-        env.email = 'oyanezm@gmail.com'
+        # assumed admin
+        env.email = env.admin
         with cd('~/.ssh'):
             run('ssh-keygen -t rsa -C "%(email)s"' % env)
 
