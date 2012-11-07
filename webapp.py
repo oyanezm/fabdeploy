@@ -53,8 +53,7 @@ class _WebApp(object):
         """
         from fabric.contrib.console import confirm
         from fabric.api import abort
-        config_path = ("%(base)s%(project_name)s/config/dev/" % env)
-        result = with_virtualenv("cd %s;python manage.py test" % config_path,
-                                                                 capture = True)
+        config_path = ("%(base)s/%(project_name)s/config/dev/" % env)
+        result = with_virtualenv("cd %s;python manage.py test" % config_path)
         if result.failed and not confirm("Test Failed. Contnue Anyway?"):
             abort("aborting at user request.")
