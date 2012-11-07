@@ -1,18 +1,20 @@
 from fabdeploy.lib.helper import _AttrDict, _is_host
-from fabric.api import settings,run,sudo 
-from fabric.contrib import files
-from fabdeploy.servers import _Alwaysdata
+from fabric.api import settings,run,sudo,env 
+from fabdeploy.servers import _Alwaysdata, get_host
+from pdb import set_trace as brake
 
 class _ApacheSetup(object):
     """
     holds methods for installing site on apache
     """
 
+
     def install_site(self):
         """
         adds the virtualhost to apache
         """
-        conf = _AttrDict(
+        host = get_host()
+        config = _AttrDict(
             wsgi = env.wsgi_path,
             admin = env.admin,
             server = env.server,
@@ -24,21 +26,14 @@ class _ApacheSetup(object):
             accesslog = ''.join([env.path,'log/apache_access.log']),
             )
 
-        files.upload_template(  filename = conf.template_path, 
-                                destination = env.vhost_path,
-                                use_sudo = env.use_sudo,
-                                context = conf,
-                                )
+        host.configure(config)
         with settings(warn_only = True):
             # remove logs
-            run("rm -rf %(errorlog)s %(accesslog)s" % conf)
+            run("rm -rf %(errorlog)s %(accesslog)s" % config)
         if env.use_sudo:
             sudo("chown root:root %s" % env.vhost_path)
             self.restart_apache()
-        # only for alwaysdata
-        if _is_host(env.hosts,'alwaysdata'):
-            adata = _Alwaysdata()
-            adata.alwaysdata_setup()
+        host.setup()
 
     def restart_apache(self):
         """
