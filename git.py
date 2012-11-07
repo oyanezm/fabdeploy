@@ -48,6 +48,7 @@ class _GitSuite(object):
         """
         clones the repo
         """
+        run("rm -rf %(project_name)s" % env)
         run("git clone %(git_addr)s %(project_name)s" % env)
 
 class _GitHubHandler(object):
