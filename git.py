@@ -30,7 +30,7 @@ class _GitSuite(object):
         """
         pull locally from the repository
         """
-        run("cd %(git_addr)s; git pull origin master")
+        run("cd %(path)s; git pull origin master" % env)
 
     def local_pull(self):
         """
