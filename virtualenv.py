@@ -18,9 +18,9 @@ class _VirtualenvWrapperSetup(object):
         class that crates the bash_profile reqiured for virtualenvwrapper
         """
         conf = _AttrDict(
-            bash_origin = ''.join([env.base,'deploy/config/.bash_profile']),
+            bash_origin = ''.join([env.base,'/fabdeploy/config/.bash_profile']),
             bash_destiny = env.bash_profile,
-            modules = ''.join([env.modules_path,'bin/'])
+            modules = ''.join([env.modules_path,'/bin/'])
             )
         files.upload_template(  filename = conf.bash_origin,
                                 destination = conf.bash_destiny,
