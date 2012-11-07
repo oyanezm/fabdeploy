@@ -4,7 +4,8 @@
         "project_name" : "foobar",
         "settings_package" : "foobar.config.settings",
         "modules_path" : "~/.local",
-        "bash_profile" : "~/.bash_profile"
+        "bash_profile" : "~/.bash_profile",
+        "avoid_test" : false
     },
     "dev" : {
         "hosts" : ["localhost"],
