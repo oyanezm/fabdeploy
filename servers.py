@@ -1,4 +1,4 @@
-from fabric.api import run, env
+from fabric.api import run, env, put
 from fabric.contrib import files
 from pdb import set_trace as brake
 
@@ -28,10 +28,11 @@ class _Alwaysdata(_BaseHost):
         """
         adds the configuration file
         """
-        filename = 'django.fcgi'
-        fcgi_origin = '/'.join(env.conf_template.split('/')[:-1]+[filename])
-        fcgi_destiny = '/'.join(env.wsgi_path.split('/')[:-1]+[filename])
-#        put(fcgi_origin,fcgi_destiny)
+        filename = '.htaccess'
+        origin = '/'.join(env.conf_template.split('/')[:-1]+[filename])
+        destiny ='/'.join(env.wsgi_path.split('/')[:-1]+[filename])
+        put(origin,destiny)
+        fcgi_destiny = '/'.join(env.wsgi_path.split('/')[:-1]+['django.fcgi'])
         run("chmod +x %s" % fcgi_destiny)
 
 class _Localhost(_BaseHost):
