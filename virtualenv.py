@@ -6,7 +6,8 @@ def with_virtualenv(command):
     """
     Executes a command in this project's virtual environment.
     """
-    local("/bin/bash -l -c 'workon %s && %s'" % (env.project_name,command))
+    result = local("/bin/bash -l -c 'workon %s && %s'" % (env.project_name,command), capture= True)
+    return result
 
 class _VirtualenvWrapperSetup(object):
     """
