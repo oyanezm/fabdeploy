@@ -8,9 +8,9 @@ from fabdeploy.virtualenv import _VirtualenvWrapperSetup,with_virtualenv
 from fabdeploy.webapp import _WebAppSetup, _WebApp
 
 import sys,os
-env.base = os.path.abspath(os.path.dirname(__file__))
+env.base = os.path.abspath(os.path.join(os.path.dirname(__file__), "../"))
 sys.path.append(env.base)
-conf_path = ''.join([env.base,'/config/fab_conf.json'])
+conf_path = ''.join([env.base,'/fabdeploy/config/fab_conf.json'])
 
 import json
 config = json.loads(open(conf_path).read())
