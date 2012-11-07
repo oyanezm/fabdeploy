@@ -1,4 +1,5 @@
 from fabric.api import local,cd,settings,run
+from fabric.api import env
 class _GitSuite(object):
     """
     hold methods to use git
@@ -47,7 +48,6 @@ class _GitSuite(object):
         """
         clones the repo
         """
-        env.git_addr = "git@github.com:oyanezm/newspaper-site.git"
         run("git clone %(git_addr)s %(project_name)s" % env)
 
 class _GitHubHandler(object):
