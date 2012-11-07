@@ -1,4 +1,5 @@
 from fabdeploy.virtualenv import _VirtualenvWrapperSetup, with_virtualenv
+from fabdeploy.lib.helper import _AttrDict
 from fabric.api import cd,sudo,settings,run,env,local
 
 class _WebAppSetup(object):
@@ -22,7 +23,6 @@ class _WebAppSetup(object):
             bash_profile = env.bash_profile,
             modules = env.modules_path,
             )
-            
         venv_sup = _VirtualenvWrapperSetup()
         if env.use_sudo:
             sudo('apt-get install python-setuptools apache2 libapache2-mod-wsgi')
