@@ -62,7 +62,7 @@ class _Deploy(object):
         env.release = time.strftime('%Y%m%d%H%M%S')
         self.prepare_deploy()
         git.remote_pull()
-        wapp.install_requirements()
+#        wapp.install_requirements()
 
    #TODO
     def maintenance_up():
