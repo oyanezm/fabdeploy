@@ -9,6 +9,12 @@ def with_virtualenv(command):
     local("/bin/bash -l -c 'workon %s && %s'" % (env.project_name,command))
 #    return result
 
+def with_virtualenv_remote(command):
+    """
+    Executes a command in this project's virtual environment.
+    """
+    run("/bin/bash -l -c 'workon %s && %s'" % (env.project_name,command))
+
 class _VirtualenvWrapperSetup(object):
     """
     class the holds methods for setting up the virtual enviroments and virtualenvwrapper.
