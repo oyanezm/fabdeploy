@@ -44,7 +44,7 @@ class _GitSuite(object):
         """
         local("cd %(git_addr)s; git reset --hard $(commit_id)s" % env)
 
-    def clone(self):
+    def flush_repo(self):
         """
         clones the repo
         """
