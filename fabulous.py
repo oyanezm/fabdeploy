@@ -52,6 +52,13 @@ class _Deploy(object):
         git.add_commit_pull()
         git.push()
 
+    def deploy_static(self):
+        """
+        collects the static files
+        """
+        app = _WebApp()
+        app.collect_static()
+
     def deploy(self):
         """
         deploy the application to the server
@@ -62,6 +69,7 @@ class _Deploy(object):
         env.release = time.strftime('%Y%m%d%H%M%S')
         self.prepare_deploy()
         git.remote_pull()
+        self.deploy_static()
 #        wapp.install_requirements()
 
    #TODO
