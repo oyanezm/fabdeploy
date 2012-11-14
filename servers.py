@@ -18,6 +18,13 @@ class _BaseHost(object):
         """
         pass
 
+    def set_permissions(self):
+        """
+        dummy permissions
+        """
+        pass
+
+
 class _Alwaysdata(_BaseHost):
     """
     always data config setup
@@ -32,6 +39,12 @@ class _Alwaysdata(_BaseHost):
         origin = '/'.join(env.conf_template.split('/')[:-1]+[filename])
         destiny ='/'.join(env.wsgi_path.split('/')[:-1]+[filename])
         put(origin,destiny)
+        self.set_permissions()
+
+    def set_permission(self):
+        """
+        gives exec permissions to fcgi files
+        """
         fcgi_destiny = '/'.join(env.wsgi_path.split('/')[:-1]+['django.fcgi'])
         run("chmod +x %s" % fcgi_destiny)
 
