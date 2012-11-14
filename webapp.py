@@ -1,4 +1,5 @@
-from fabdeploy.virtualenv import _VirtualenvWrapperSetup, with_virtualenv
+from fabdeploy.virtualenv import _VirtualenvWrapperSetup, with_virtualenv,\
+                                 with_virtualenv_remote
 from fabdeploy.lib.helper import _AttrDict
 from fabric.api import cd,sudo,settings,run,env,local
 
@@ -59,3 +60,10 @@ class _WebApp(object):
         result = with_virtualenv("cd %s;python manage.py test" % config_path)
 #        if result.failed and not confirm("Test Failed. Contnue Anyway?"):
 #            abort("aborting at user request.")
+
+    def collect_static(self):
+        """
+        calls collect static files
+        """
+        config_path = ("%(base)s/%(project_name)s/config/dev/" % env)
+        result = with_virtualenv_remote("cd %s;python manage.py collectstatic" % config_path)
