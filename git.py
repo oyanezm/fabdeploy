@@ -1,6 +1,5 @@
 from fabric.api import local,cd,settings,run
 from fabric.api import env
-from fabdeploy.servers import get_host
 class _GitSuite(object):
     """
     hold methods to use git
@@ -45,15 +44,11 @@ class _GitSuite(object):
         """
         local("cd %(git_addr)s; git reset --hard $(commit_id)s" % env)
 
-    #TODO:sepatare in clone(here) and flush_repo(fabulous?)
-    def flush_repo(self):
+    def clone(self):
         """
         clones the repo and set requires permissions
         """
-        host = get_host()
-        run("rm -rf %(project_name)s" % env)
         run("git clone %(git_addr)s %(project_name)s" % env)
-        host.setup()
 
 class _GitHubHandler(object):
     """
