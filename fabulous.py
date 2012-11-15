@@ -5,6 +5,7 @@ from fabdeploy.apache import _ApacheSetup
 from fabdeploy.database import _DatabaseSetup
 from fabdeploy.git import _GitSuite,_GitHubHandler
 from fabdeploy.virtualenv import _VirtualenvWrapperSetup,with_virtualenv
+from fabdeploy.servers import get_host
 from fabdeploy.webapp import _WebAppSetup, _WebApp
 
 import sys,os
@@ -41,6 +42,17 @@ class _Deploy(object):
     """
     hold methods for deploying of the applicantion.
     """
+
+    def flush_repo(self):
+        """
+        removes the old repo in server and clones a new one.
+        the configures the host.
+        """
+        host = get_host()
+        git = _GitSuite()
+        run("rm -rf %(project_name)s" % env)
+        git.clone()
+        host.setup()
 
     def prepare_deploy(self):
         """
