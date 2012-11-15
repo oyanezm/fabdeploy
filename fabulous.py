@@ -63,11 +63,12 @@ class _Deploy(object):
         app.test()
         git.add_commit_pull()
         git.push()
-
+    #TODO: find where to put static_path
     def deploy_static(self):
         """
-        collects the static files
+        empty static_root and collects the static files
         """
+        run("rm -rf %(path)s%(project_name)s/static/*" % env)
         app = _WebApp()
         app.collect_static()
 
