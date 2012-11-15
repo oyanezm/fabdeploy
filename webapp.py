@@ -66,4 +66,4 @@ class _WebApp(object):
         calls collect static files
         """
         config_path = ("%(path)s%(project_name)s/config/%(step)s/" % env)
-        result = with_virtualenv_remote("cd %s;python manage.py collectstatic" % config_path)
+        result = with_virtualenv_remote("cd %s && python manage.py collectstatic" % config_path)
