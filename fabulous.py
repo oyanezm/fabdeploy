@@ -24,7 +24,19 @@ def env_setter(step):
         env.step = step
         utils.copy_keys(env,config[env.step])
         utils.copy_keys(env,config['globals'])
+        set_db_data(env.settings_module)
     return set_in_scope
+
+def set_db_data(settings_module):
+    """
+    set database variables to env
+    """
+    from django.conf import settings as django_settings
+    from fabric.contrib import django
+    django.settings_module(settings_module)
+    env.db_user = django_settings.DB_USER
+    env.db_pass = django_settings.DB_PASSWORD
+    env.db_table = django_settings.DB_NAME
 
 class _Roles(object):
     """
