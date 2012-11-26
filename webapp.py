@@ -48,6 +48,13 @@ class _WebApp(object):
     Handler to use some web application functions.
     """
 
+    def django_admin(self,command):
+        """
+        runs a django-admin command
+        """
+        config_path = ("%(base)s/%(project_name)s/config/dev/" % env)
+        return("cd %s;python manage.py %s" % (config_path,command))
+
     def test(self):
         """
         unit testing on app.
@@ -56,8 +63,7 @@ class _WebApp(object):
             return True
         from fabric.contrib.console import confirm
         from fabric.api import abort
-        config_path = ("%(base)s/%(project_name)s/config/dev/" % env)
-        result = with_virtualenv("cd %s;python manage.py test" % config_path)
+        result = with_virtualenv(self.django_admin("test"))
 #        if result.failed and not confirm("Test Failed. Contnue Anyway?"):
 #            abort("aborting at user request.")
 
@@ -65,5 +71,19 @@ class _WebApp(object):
         """
         calls collect static files
         """
-        config_path = ("%(path)s%(project_name)s/config/%(step)s/" % env)
-        result = with_virtualenv_remote("cd %s && python manage.py collectstatic" % config_path)
+        result = with_virtualenv_remote(self.django_admin("collectstatic"))
+
+    def syncdb(self):
+        """
+        run django-admin.py syncdb
+        """
+        with_virtualenv_remote(self.django_admin("syncdb"))
+
+    def migrate(self,app_name=''):
+        with_virtualenv_remote(self.django_admin("migrate %s" % app_name))
+
+    def initial_migration(self,app_name):
+        with_virtualenv_remote(self.django_admin("schemamigration %s –initial" % app_name))
+
+    def auto_migration(self,app_name):
+        with_virtualenv_remote(self.django_admin("schemamigration %s –auto" % app_name))
