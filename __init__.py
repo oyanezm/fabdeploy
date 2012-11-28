@@ -1,0 +1,53 @@
+import sys, os
+from fabric.api import env,task
+from fabdeploy.lib.helper import copy_keys
+from pdb import set_trace as brake
+env.base = os.path.abspath(os.path.join(os.path.dirname(__file__), "../"))
+sys.path.append(env.base)
+conf_path = ''.join([env.base,'/fabdeploy/config/fab_conf.json'])
+
+import json
+config = json.loads(open(conf_path).read())
+
+def set_db_data(settings_module):
+    """
+    set database variables to env
+    """
+    from django.conf import settings as django_settings
+    from fabric.contrib import django
+    django.settings_module(settings_module)
+    env.db_user = django_settings.DB_USER
+    env.db_pass = django_settings.DB_PASSWORD
+    env.db_table = django_settings.DB_NAM
+
+def env_setter(step):
+    """
+    closure that sets the enviroment.
+    """
+    def set_in_scope():
+        """
+        sets the host env
+        """
+        env.step = step
+        copy_keys(env,config[env.step])
+        copy_keys(env,config['globals'])
+        set_db_data(env.settings_module)
+    return set_in_scope
+
+def configure(module_name):
+    """
+    bound the dev,stage and prod tasks
+    to the current module.
+    """
+    from types import MethodType
+    steps = ['dev','stage','prod']
+
+    # get the module as an object
+    module_obj = sys.modules[module_name]
+
+    # bound the tasks
+    for step in steps:
+        funcs = task(env_setter(step))
+        funcs.name = step
+        method = MethodType(funcs,module_obj,module_obj.__class__)
+        setattr(module_obj,step,funcs)
