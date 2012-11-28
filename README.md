@@ -5,11 +5,13 @@ Deployment for Django based on Fabric > 1.5. Early Development not properly test
 
 install
 =======
-add to fabfile.py:
+This module comes with submodules for specific applications.
+To install them you must (1) call the configurator to set the enviroment variables
+and (2)import the modules you require. To do so:
 ```python
-from fabdeploy import fabulous
-#bound to the current module
-_loader, instances = fabulous.load_instances()
-for inst in instances:
-    _loader(inst,__name__)
+#1 load the modules you need
+from fabdeploy import app, apache,github,django, deploy, database, 
+#2 configure
+from fabdeploy import configure
+configure(__name__)
 ```
