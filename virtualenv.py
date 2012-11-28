@@ -22,7 +22,7 @@ class _VirtualenvWrapperSetup(object):
     """
     def prepare(self):
         """
-        class that crates the bash_profile reqiured for virtualenvwrapper
+        updates bash_profile  
         """
         conf = _AttrDict(
             bash_origin = ''.join([env.base,'/fabdeploy/config/.bash_profile']),
