@@ -3,8 +3,7 @@ fab-deploy
 
 Deployment for Django based on Fabric > 1.5. Early Development not properly tested yet, be aware.
 
-install
-=======
+## installation
 This module comes with submodules for specific applications.
 To install them you must (1) import the modules you require and
 (2) call the configurator to set the enviroment variables. To do so add to
