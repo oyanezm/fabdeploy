@@ -1,17 +1,15 @@
-from fabdeploy.virtualenv import _VirtualenvWrapperSetup, with_virtualenv,\
-                                 with_virtualenv_remote
+from fabdeploy.virtualenv import with_virtualenv, with_virtualenv_remote
 from fabric.api import cd,sudo,env,task
 
-@task(name='admin')
-def django_admin(command):
+@task
+def admin(command):
     """
     runs a django-admin command
     """
     config_path = ("%(base)s/%(project_name)s/config/dev/" % env)
     return("cd %s;python manage.py %s" % (config_path,command))
 
-@task(name='test')
-def django_test():
+def test():
     """
     unit testing on app.
     """
@@ -21,14 +19,12 @@ def django_test():
     from fabric.api import abort
     result = with_virtualenv(django_admin("test"))
 
-@task
-def collect_static(self):
+def collectstatic(self):
     """
     calls collect static files
     """
     result = with_virtualenv_remote(django_admin("collectstatic"))
 
-@task
 def syncdb():
     """
     runs django-admin.py syncdb
