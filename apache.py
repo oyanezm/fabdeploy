@@ -1,4 +1,4 @@
-from fabdeploy.lib.helper import _AttrDict, _is_host
+from fabdeploy.lib.utils import _AttrDict, _is_host
 from fabric.api import settings,run,sudo,env,task 
 from fabdeploy.servers import get_host
 
