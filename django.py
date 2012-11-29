@@ -9,7 +9,7 @@ def admin(command):
     """
     config_path = ("%(base)s/%(project_name)s/config/dev/" % env)
     return("cd %s;python manage.py %s" % (config_path,command))
-
+@task
 def test():
     """
     unit testing on app.
@@ -18,25 +18,25 @@ def test():
         return True
     from fabric.contrib.console import confirm
     from fabric.api import abort
-    result = with_virtualenv(django_admin("test"))
-
-def collectstatic(self):
+    result = with_virtualenv(admin("test"))
+@task
+def collectstatic():
     """
     calls collect static files
     """
-    result = with_virtualenv_remote(django_admin("collectstatic"))
+    result = with_virtualenv_remote(admin("collectstatic"))
 
 def syncdb():
     """
     runs django-admin.py syncdb
     """
-    with_virtualenv_remote(django_admin("syncdb"))
+    with_virtualenv_remote(admin("syncdb"))
 
-def django__migrate(self,app_name=''):
-    with_virtualenv_remote(django_admin("migrate %s" % app_name))
+def migrate(app_name=''):
+    with_virtualenv_remote(admin("migrate %s" % app_name))
 
-def initial_migration(self,app_name):
-    with_virtualenv_remote(django_admin("schemamigration %s --initial" % app_name))
+def initial_migration(app_name):
+    with_virtualenv_remote(admin("schemamigration %s --initial" % app_name))
 
-def auto_migration(self,app_name):
-    with_virtualenv_remote(django_admin("schemamigration %s --auto" % app_name))
+def auto_migration(app_name):
+    with_virtualenv_remote(admin("schemamigration %s --auto" % app_name))
