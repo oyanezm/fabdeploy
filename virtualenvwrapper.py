@@ -1,4 +1,4 @@
-from fabdeploy.lib.helper import _AttrDict
+from fabdeploy.lib.utils import _AttrDict
 from fabric.api import settings,run,env,local
 from fabric.contrib import files
 
