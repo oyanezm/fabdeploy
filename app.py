@@ -1,10 +1,10 @@
 from fabdeploy.virtualenv import with_virtualenv,with_virtualenv_remote
 from fabdeploy import virtualenvwrapper as venvwrapper
-from fabdeploy.lib.helper import _AttrDict
+from fabdeploy.lib.utils import _AttrDict
 from fabric.api import cd,sudo,settings,run,env,local,task
 
 @task
-def install_requirements(self):
+def install_requirements():
     """
     install virtualenv requirements from requirements.txt
     """
@@ -12,7 +12,7 @@ def install_requirements(self):
         with_virtualenv('pip install -r requirements.txt')
 
 @task(name='setup')
-def bootstrap_setup(self):
+def bootstrap_setup():
     """
     setup a fresh virtualenv as well as a few useful directories, then run
     a full deployment
