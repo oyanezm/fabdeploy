@@ -1,7 +1,7 @@
 import sys, os
-from fabric.api import env,task
-from fabdeploy.lib.helper import copy_keys
 from pdb import set_trace as brake
+from fabric.api import env,task
+from fabdeploy.lib import utils, import_non_local
 env.base = os.path.abspath(os.path.join(os.path.dirname(__file__), "../"))
 sys.path.append(env.base)
 conf_path = ''.join([env.base,'/fabdeploy/config/fab_conf.json'])
@@ -13,12 +13,13 @@ def set_db_data(settings_module):
     """
     set database variables to env
     """
-    from django.conf import settings as django_settings
+    import_non_local('django','django_std')
+    from django_std.conf import settings as django_settings
     from fabric.contrib import django
     django.settings_module(settings_module)
     env.db_user = django_settings.DB_USER
     env.db_pass = django_settings.DB_PASSWORD
-    env.db_table = django_settings.DB_NAM
+    env.db_table = django_settings.DB_NAME
 
 def env_setter(step):
     """
@@ -29,8 +30,8 @@ def env_setter(step):
         sets the host env
         """
         env.step = step
-        copy_keys(env,config[env.step])
-        copy_keys(env,config['globals'])
+        utils.copy_keys(env,config[env.step])
+        utils.copy_keys(env,config['globals'])
         set_db_data(env.settings_module)
     return set_in_scope
 
