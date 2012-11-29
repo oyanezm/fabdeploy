@@ -1,5 +1,4 @@
 from fabric.api import env,run,sudo,task
-from fabdeploy.django import test as django_test, collectstatic as django_collectstatic
 from fabdeploy import git
 from fabdeploy.virtualenv import with_virtualenv
 from pdb import set_trace as brake
@@ -20,6 +19,7 @@ def prepare_deploy():
     """
     pull, commit, push and test in the app.
     """
+    from fabdeploy.django import test as django_test
     django_test()
     git.add_commit_pull()
     git.push()
@@ -28,21 +28,26 @@ def prepare_deploy():
 def deploy_static():
     """
     empty static_root and collects the static files
-    """
+    """    
+    from fabdeploy.django import collectstatic as django_collectstatic
     run("rm -rf %(path)s%(project_name)s/static/*" % env)
     django_collect_static()
 
 @task
-def run():
+def run(syncdb=False):
     """
     deploy the application to the server
     """
+    from fabdeploy.django import migrate as django_migrate, syncdb as django_syncdb
     import time
     env.release = time.strftime('%Y%m%d%H%M%S')
-    prepare_deploy()
+    prepare_deploy() # pull, test, push
     git.remote_pull()
-    deploy_static()
     app.install_requirements()
+    if syncdb:
+        django_syncdb()
+    django_migrate()
+    deploy_static()
 
 #TODO
 def maintenance_up():
