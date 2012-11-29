@@ -1,14 +1,12 @@
 from fabric.api import env,run,sudo,task
-#from fabdeploy import git,django,app,virtualenv
 from fabdeploy.django import test as django_test, collectstatic as django_collectstatic
 from fabdeploy import git
-#from fabdeploy import django
 from fabdeploy.virtualenv import with_virtualenv
 from pdb import set_trace as brake
 from fabdeploy.servers import get_host
 
 @task
-def flush_repo(self):
+def flush_repo():
     """
     removes the old repo in server and clones a new one.
     the configures the host.
@@ -18,7 +16,7 @@ def flush_repo(self):
     git.clone()
     host.setup()
 
-def prepare_deploy(self):
+def prepare_deploy():
     """
     pull, commit, push and test in the app.
     """
@@ -27,7 +25,7 @@ def prepare_deploy(self):
     git.push()
 
 #TODO: find where to put static_path
-def deploy_static(self):
+def deploy_static():
     """
     empty static_root and collects the static files
     """
@@ -35,7 +33,7 @@ def deploy_static(self):
     django_collect_static()
 
 @task
-def run(self):
+def run():
     """
     deploy the application to the server
     """
