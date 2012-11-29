@@ -9,7 +9,7 @@ To install them you must (1) import the modules you require and
 your fabfile:
 ```python
 #1 load the modules you need
-from fabdeploy import app, apache,github,django, deploy, database, 
+from fabdeploy import app, apache, github, django, deploy, database 
 #2 configure
 from fabdeploy import configure
 configure(__name__)
