@@ -44,9 +44,7 @@ def run(syncdb=False):
     prepare_deploy() # pull, test, push
     git.remote_pull()
     app.install_requirements()
-    if syncdb:
-        django_syncdb()
-    django_migrate()
+    django_migrate(syncdb) # syncdb in case is first time
     deploy_static()
 
 #TODO
