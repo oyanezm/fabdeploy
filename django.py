@@ -7,7 +7,7 @@ def admin(command):
     """
     runs a django-admin command
     """
-    config_path = ("%(base)s/%(project_name)s/config/dev/" % env)
+    config_path = ("%(root_path)s%(project_name)s/config/%(step)s/" % env)
     return("cd %s;python manage.py %s" % (config_path,command))
 @task
 def test():
@@ -31,6 +31,7 @@ def syncdb():
     runs django-admin.py syncdb
     """
     with_virtualenv_remote(admin("syncdb"))
+
 @task
 def migrate(use_syncdb = False, app_name=''):
     """
