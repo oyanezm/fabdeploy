@@ -9,7 +9,7 @@ def install_requirements():
     install virtualenv requirements from requirements.txt
     """
     with cd(env.root_path):
-        with_virtualenv('pip install -r requirements.txt')
+        with_virtualenv_remote('pip install -r requirements.txt')
 
 @task(name='setup')
 def bootstrap_setup():
