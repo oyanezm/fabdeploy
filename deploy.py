@@ -33,7 +33,7 @@ def deploy_static():
     run("rm -rf %(root_path)s%(project_name)s/static/*" % env)
     django_collect_static()
 
-@task
+@task(default=True)
 def run(syncdb=False):
     """
     deploy the application to the server
