@@ -31,8 +31,14 @@ def syncdb():
     runs django-admin.py syncdb
     """
     with_virtualenv_remote(admin("syncdb"))
-
-def migrate(app_name=''):
+@task
+def migrate(use_syncdb = False, app_name=''):
+    """
+    run migrations on "app_name".
+    use_syncdb in case its first time to migrate
+    """
+    if use_syncdb:
+        syncdb()
     with_virtualenv_remote(admin("migrate %s" % app_name))
 
 def initial_migration(app_name):
