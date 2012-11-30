@@ -1,5 +1,5 @@
 from fabric.api import env,run,sudo,task
-from fabdeploy import git
+from fabdeploy import git,app
 from fabdeploy.virtualenv import with_virtualenv
 from pdb import set_trace as brake
 from fabdeploy.servers import get_host
