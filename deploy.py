@@ -30,7 +30,7 @@ def deploy_static():
     empty static_root and collects the static files
     """    
     from fabdeploy.django import collectstatic as django_collectstatic
-    run("rm -rf %(path)s%(project_name)s/static/*" % env)
+    run("rm -rf %(root_path)s%(project_name)s/static/*" % env)
     django_collect_static()
 
 @task

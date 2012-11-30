@@ -8,7 +8,7 @@ def install_requirements():
     """
     install virtualenv requirements from requirements.txt
     """
-    with cd(env.path):
+    with cd(env.root_path):
         with_virtualenv('pip install -r requirements.txt')
 
 @task(name='setup')
