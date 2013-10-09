@@ -36,7 +36,7 @@ class _Alwaysdata(_BaseHost):
         adds the configuration file
         """
         filename = '.htaccess'
-        origin = '/'.join(env.conf_template.split('/')[:-1]+[filename])
+        origin = '/'.join(env.vhost_template.split('/')[:-1]+[filename])
         destiny ='/'.join(env.wsgi_path.split('/')[:-1]+[filename])
         put(origin,destiny)
         self.set_permissions()
@@ -56,20 +56,21 @@ class _Localhost(_BaseHost):
 
     def configure(self,config):
         """
-        updates an apache config file
+        updates apache virtualhosts
         """
-        files.upload_template(  filename = config.template_path, 
-                                destination = env.vhost_path,
-                                use_sudo = env.use_sudo,
-                                context = config,
-                                )
+        files.upload_template(
+            filename = config.vhost_template,
+            destination = env.vhost_path,
+            use_sudo = env.use_sudo,
+            context = config,
+        )
+        #TODO: add symbolic link
+
 def get_host():
     """
     returns the host class
     """
     for hostname in env.hosts:
-        if "alwaysdata" in hostname:
-            return _Alwaysdata()
-        elif "localhost" in hostname:
-            return _Localhost()
+        if "alwaysdata" in hostname:    return _Alwaysdata()
+        else:                           return _Localhost()
 
