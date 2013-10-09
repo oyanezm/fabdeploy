@@ -15,10 +15,10 @@
         "path" : "/home/user/to/project/",
         "wsgi_path" : "/home/user/to/project/config/django.wsgi",
         "vhost_path" : "/to/apache/default",
-        "modules_path" :"/usr/local/bin", 
+        "modules_path" :"/usr/local/bin",
         "conf_template" : "/home/user/deploy/config/localhost.conf",
         "use_sudo" : true
-            },
+    },
     "stage" : {
         "hosts" : [""],
         "server" : "",
@@ -27,11 +27,11 @@
         "path" : "",
         "wsgi_path" : "/home/user/to/project/config/",
         "vhost_path" : "",
-        "modules_path" : "/home/user/.local/", 
+        "modules_path" : "/home/user/.local/",
         "conf_template" : "",
         "use_sudo" : false
             },
-    "prod" :  { 
+    "prod" :  {
         "hosts" : [""],
         "server" : "",
         "password" : "",
