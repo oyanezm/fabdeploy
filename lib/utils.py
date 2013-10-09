@@ -5,7 +5,7 @@ class _AttrDict(dict):
     __getattr__ = dict.__getitem__
     __setattr__ = dict.__setitem__
     __delattr__ = dict.__delitem__
-    
+
 def _is_host(hosts,hostname):
     """
     returns true if a hostname is containied in a list
