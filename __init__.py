@@ -13,19 +13,31 @@ conf_path = ''.join([env.base,'/fabdeploy/config/fab_conf.json'])
 import json
 config = json.loads(open(conf_path).read())
 
-def set_db_data(settings_module):
+def set_db_data(env):
     """
     set database variables to env
     """
-    import_non_local('django','django_std')
-    from django_std.conf import settings as django_settings
-    from fabric.contrib import django
+    # if using django load from settings
+    if env.settings_django_package:
 
-    django.settings_module(settings_module)
+        import_non_local('django','django_std')
+        from django_std.conf import settings as django_settings
+        from fabric.contrib import django
 
-    env.db_user = django_settings.DB_USER
-    env.db_pass = django_settings.DB_PASSWORD
-    env.db_table = django_settings.DB_NAME
+        django.settings_module(env.settings_django_package)
+
+        env.db_user = django_settings.DB_USER
+        env.db_pass = django_settings.DB_PASSWORD
+        env.db_table = django_settings.DB_NAME
+
+    # otherwise use json settings
+    else:
+        json_settings = json.loads(open(env.settings_json).read())
+
+        env.db_user = json_settings['DB_USER']
+        env.db_pass = json_settings['DB_PASSWORD']
+        env.db_table = json_settings['DB_NAME']
+
 
 def env_setter(step):
     """
@@ -38,7 +50,7 @@ def env_setter(step):
         env.step = step
         utils.copy_keys(env,config[env.step])
         utils.copy_keys(env,config['globals'])
-        set_db_data(env.settings_module)
+        set_db_data(env)
     return set_in_scope
 
 def configure(module_name):
