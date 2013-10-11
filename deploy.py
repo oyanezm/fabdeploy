@@ -2,7 +2,7 @@ from fabric.api import env,run,sudo,task
 from fabdeploy import git,app
 from fabdeploy.virtualenv import with_virtualenv
 from pdb import set_trace as brake
-from fabdeploy.servers import get_host
+from fabdeploy.servers import get_server
 
 @task
 def flush_repo():
@@ -10,10 +10,10 @@ def flush_repo():
     removes the old repo in server and clones a new one.
     the configures the host.
     """
-    host = get_host()
+    server = get_server()
     run("rm -rf %(project_name)s" % env)
     git.clone()
-    host.setup()
+    server.setup()
 
 def prepare_deploy():
     """
