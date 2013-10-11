@@ -1,10 +1,16 @@
 {
     "globals" : {
+        "_comments" : "In case you dont want to use Django settings
+        then 'settings_django_package' must be set to 'false'
+        and 'settings_json' must contain the settings.
+        e.g settings.example",
+
         "admin" : "foo@bar.com",
         "project_name" : "foobar",
 
         "settings_django_package" : "foobar.config.settings",
 
+        "apache_path" : "/etc/apache2/",
         "modules_path" : "~/.local",
         "bash_profile_path" : "~/.bash_profile",
 
@@ -12,8 +18,8 @@
     },
     "dev" : {
         "hosts" : ["localhost"],
-        "server": "foobar.com",
         "password" : "psw",
+
         "home" : "/home/user/",
         "path" : "/home/user/to/project/",
         "modules_path" :"/usr/local/bin",
@@ -21,34 +27,27 @@
         "wsgi_path" : "/home/user/to/project/config/django.wsgi",
 
         "log_path" : "~/my_logs/",
-        "vhost_path" : "/to/apache/default",
         "vhost_template" : "/home/user/deploy/config/virtualhost.conf",
+        "settings_json" : "/to/my/settings.json",
 
-        "settings_json" : "settings.json",
         "use_sudo" : true
     },
-    "stage" : {
+    "test" : {
         "hosts" : [""],
-        "server" : "",
         "password" : "",
+
         "home" : "",
         "path" : "",
-        "wsgi_path" : "/home/user/to/project/config/",
-        "vhost_path" : "",
         "modules_path" : "/home/user/.local/",
-        "conf_template" : "",
-        "use_sudo" : false
-            },
-    "prod" :  {
-        "hosts" : [""],
-        "server" : "",
-        "password" : "",
-        "home" : "",
-        "path" : "",
-        "wsgi_path" : "",
-        "vhost_path" : "",
-        "modules_path" : "", 
-        "conf_template" : "",
-        "use_sudo" : false
-          }
+
+        "wsgi_path" : "/home/user/to/project/config/",
+
+        "log_path" : "~/my_logs/",
+        "vhost_template" : "/home/user/deploy/config/virtualhost.conf",
+        "settings_json" : "/to/my/settings.json",
+
+        "use_sudo" : true
+    },
+    "live" :  {
+    }
 }
