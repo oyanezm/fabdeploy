@@ -3,7 +3,9 @@
         "_comments" : "In case you dont want to use Django settings
         then 'settings_django_package' must be set to 'false'
         and 'settings_json' must contain the settings.
-        e.g settings.example",
+        e.g settings.example.
+
+        Allowed database types 'mysql' as defaulr and 'postgres'",
 
         "admin" : "foo@bar.com",
         "project_name" : "foobar",
@@ -14,6 +16,7 @@
         "modules_path" : "~/.local",
         "bash_profile_path" : "~/.bash_profile",
 
+        "database" : "mysql",
         "avoid_test" : false
     },
     "dev" : {
