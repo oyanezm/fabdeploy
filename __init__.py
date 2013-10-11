@@ -28,7 +28,7 @@ def set_db_data(env):
 
         env.db_user = django_settings.DB_USER
         env.db_pass = django_settings.DB_PASSWORD
-        env.db_table = django_settings.DB_NAME
+        env.db_name = django_settings.DB_NAME
         env.url = django_settings.SITE_URL
 
     # otherwise use json settings
@@ -37,7 +37,7 @@ def set_db_data(env):
 
         env.db_user = json_settings['DB_USER']
         env.db_pass = json_settings['DB_PASSWORD']
-        env.db_table = json_settings['DB_NAME']
+        env.db_name = json_settings['DB_NAME']
         env.url = json_settings['SITE_URL']
 
 
@@ -61,7 +61,7 @@ def configure(module_name):
     to the current module.
     """
     from types import MethodType
-    steps = ['dev','stage','prod']
+    steps = ['dev','test','live']
 
     # get the module as an object
     module_obj = sys.modules[module_name]
@@ -72,3 +72,7 @@ def configure(module_name):
         funcs.name = step
         method = MethodType(funcs,module_obj,module_obj.__class__)
         setattr(module_obj,step,funcs)
+
+    # if no env, use default
+    if not set(steps).intersection(set(sys.argv)):
+        env_setter(steps[0])();
