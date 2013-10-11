@@ -2,5 +2,7 @@
     "DB_NAME" : "foobar",
     "DB_USER" : "foo",
     "DB_PASSWORD" : "bar",
-    "DB_HOST" : "localhost"
+    "DB_HOST" : "localhost",
+
+    "SITE_URL" : "foo.bar.com"
 }
