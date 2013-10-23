@@ -5,7 +5,7 @@ from fabdeploy.servers import get_server
 @task
 def configure():
     """
-    configures apache based on Host
+    configures apache based on Host Type
     """
     config = _AttrDict(
         wsgi = env.wsgi_path,
