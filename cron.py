@@ -8,10 +8,36 @@ def configure():
     """
     configures cron jobs
     """
-    config = _AttrDict(
+    context = _AttrDict(
         base_url = env.url,
         log_path = env.log_path + 'cron/execution.log',
     )
+
+    generate_cron_file(context)
+    set_crontab()
+    delete_cron_file()
+
+@task
+def append():
+    """
+    adds cron job
+    """
+    # create tmp cron file
+    generate_cron_file(context)
+
+    # append existing crontab
+    run('crontab -l >%s' % tmp_cron_path)
+    set_crontab()
+    delete_cron_file()
+
+
+def set_crontab():
+    run('crontab %s' % tmp_cron_path)
+
+def generate_cron_file(contxt):
+    """
+    creates temporary cron file
+    """
 
     # upload tmp file
     tmp_cron_path = env.cron_path + '.tmp'
@@ -20,9 +46,9 @@ def configure():
         filename = env.cron_path,
         destination = tmp_cron_path,
         use_sudo = env.use_sudo,
-        context = config,
+        context = contxt
     )
 
-    run('crontab %s' % tmp_cron_path)
+def remove_cron_file():
     run('rm %s' % tmp_cron_path)
 
