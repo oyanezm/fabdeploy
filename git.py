@@ -29,7 +29,7 @@ def remote_pull():
     run("cd %(root_path)s; git pull origin master" % env)
 
 @task
-def local_pull():
+def pull():
     """
     pull the repository from ther server
     """
