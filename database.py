@@ -13,10 +13,10 @@ def setup():
 
 @task
 def backup():
-    from fabric.api import settings, sudo, env, task, run
     """
     backups db (mysql only)
     """
+    from fabric.api import settings, sudo, env, task, run
     import datetime
     today_date = str(datetime.date.today())
     today_backup_folder = env.backup_path + today_date
