@@ -1,4 +1,4 @@
-from fabric.api import task
+from fabric.api import task, env
 from pdb import set_trace as brake
 
 def setup():
@@ -16,41 +16,35 @@ def backup():
     """
     backups db (mysql only)
     """
+    from fabdeploy import app
+
+    # dump sql in backup folder
+    dump()
+    app.backup_to_gzip()
+
+def dump():
+    """
+    Dumps the database in the backup folder
+    """
     from fabric.api import settings, sudo, env, task, run
     import datetime
-    today_date = str(datetime.date.today())
-    today_backup_folder = env.backup_path + today_date
-    today_backup_file = today_backup_folder + '.gz';
 
     # remove old backup folder and create new one
-    print("Wipe Old Backup for "+today_date)
+    print("\nCleaning Old Backup for " + str(datetime.date.today()))
     with settings(warn_only = True):
-        run('rm -rf ' + today_backup_file)
-        run('rm -rf ' + today_backup_folder)
-        run('mkdir ' + today_backup_folder)
-
-    # Copy Site Folder
-    print("Copy Site Folder")
-    with settings(warn_only = True):
-        run('cp -r ' + env.path +' '+today_backup_folder)
+        run('rm -rf ' + env.today_backup_gzip)
+        run('rm -rf ' + env.today_backup_folder)
+        run('mkdir '  + env.today_backup_folder)
 
     # Dump File
-    print("Dump Database")
+    print("\nDumping Database")
     filename = "dump.sql";
-    today_backup_sql = today_backup_folder + '/' + filename
+    today_backup_sql = env.today_backup_folder + '/' + filename
     with settings(warn_only = True):
         # dump sql with or withour password
         if env.db_pass: query = 'mysqldump -u %s -p %s > %s ';
         else:               query = 'mysqldump -u %s %s > %s ';
         sudo(query % (env.db_user,env.db_name,today_backup_sql));
-
-
-    print("Gzip and Clean")
-    # Gzip folder and remove
-    with settings(warn_only = True):
-        # no output on both TODO: Fix path on gziped file
-        run('tar -czf %s %s >/dev/null 2>&1' % (today_backup_file, today_backup_folder))
-        run('rm -rf ' + today_backup_folder + ' 2> /dev/null')
 
 def drop_database():
     """

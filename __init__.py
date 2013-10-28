@@ -40,6 +40,11 @@ def set_db_data(env):
         env.db_name = json_settings['DB_NAME']
         env.url = json_settings['SITE_URL']
 
+    # SET BACKUP VARIABLES
+    import datetime
+    env.today_backup_folder = env.backup_path + str(datetime.date.today())
+    env.today_backup_gzip = env.today_backup_folder + '.tgz';
+
 
 def env_setter(step):
     """
@@ -76,3 +81,4 @@ def configure(module_name):
     # if no env, use default
     if not set(steps).intersection(set(sys.argv)):
         env_setter(steps[0])();
+

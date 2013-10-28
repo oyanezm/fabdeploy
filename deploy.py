@@ -47,17 +47,3 @@ def run(syncdb=False):
     django_migrate(syncdb) # syncdb in case is first time
     deploy_static()
 
-#TODO
-def maintenance_up():
-    """
-    Install the Apache maintenance configuration.
-    """
-    run('cp %(repo_path)s/%(project_name)s/configs/%(settings)s/%(project_name)s_maintenance %(apache_config_path)s' % env)
-    reboot()
-
-def maintenance_down():
-    """
-    Reinstall the normal site configuration.
-    """
-    install_apache_conf()
-    reboot()
