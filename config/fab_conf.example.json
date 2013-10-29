@@ -33,9 +33,9 @@
 
         "root_path" :   "/path/to/my/project",
         "public_path" : "/path/to/my/project/public",
-        "cron_path" :   "/path/to/my/cron",
+        "crontab_path" :"/path/to/my/crontab",
         "log_path" :    "/path/to/my/logs",
-        "backup_path":  "/path/to/my/backup",
+        "backup_path":  "/path/to/my/backups",
 
         "vhost_template" :  "/path/to/my/virtualhost.conf",
         "settings_json" :   "/path/to/my/settings.json",
