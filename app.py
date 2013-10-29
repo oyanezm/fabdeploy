@@ -11,8 +11,8 @@ def backup_to_gzip():
     with settings(warn_only = True):
         run('tar -cvzpf ' + env.today_backup_gzip + ' -C ' + env.today_backup_folder + ' . >/dev/null 2>&1')
         run('rm -rf ' + env.today_backup_folder)
-        run('rm -f' + env.log_path + 'apache/access.log')
-        run('rm -f' + env.log_path + 'apache/error.log')
+        run('rm -f ' + env.log_path + 'apache/access.log')
+        run('rm -f ' + env.log_path + 'apache/error.log')
         apache.restart()
 
 @task
@@ -36,7 +36,7 @@ def backup():
         run('cp ' + env.log_path + 'apache/* '+ env.today_backup_folder)
 
     # backup folder to gzip
-    print("\n Compressing Backup")
+    print("\nCompressing Backup")
     backup_to_gzip()
 
 def install_requirements():
