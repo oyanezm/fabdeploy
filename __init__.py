@@ -42,7 +42,7 @@ def set_db_data(env):
 
     # SET BACKUP VARIABLES
     import datetime
-    env.today_backup_folder = env.backup_path + str(datetime.date.today())
+    env.today_backup_folder = env.backup_path + '/' + str(datetime.date.today())
     env.today_backup_gzip = env.today_backup_folder + '.tgz';
 
 

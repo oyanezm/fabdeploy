@@ -13,9 +13,9 @@ def configure():
         root = env.path,
         admin = env.admin,
         server = ''.join(['www.',env.url]),
-        venv_path = ''.join([env.home,'.virtualenvs/',env.project_name]),
-        errorlog  = ''.join([env.log_path,'error.log']),
-        accesslog = ''.join([env.log_path,'access.log']),
+        venv_path = ''.join([env.home,'/.virtualenvs/',env.project_name]),
+        errorlog  = ''.join([env.log_path,'/error.log']),
+        accesslog = ''.join([env.log_path,'/access.log']),
     )
 
     # get server and set configuration files

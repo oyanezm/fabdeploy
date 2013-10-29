@@ -5,14 +5,14 @@ from fabdeploy.servers import get_server
 
 
 # upload tmp file
-tmp_cron_path = env.cron_path + '.tmp'
+tmp_cron_path = env.cron_path + '/crontab.tmp'
 
 @task
 def configure():
     """
     configures cron jobs
     """
-    env.log_path += 'cron/execution.log',
+    env.log_path += '/cron/execution.log',
 
     generate_cron_file()
     set_crontab()
