@@ -25,7 +25,7 @@ def append():
     generate_cron_file()
 
     # append existing crontab
-    run('crontab -l >%s' % env.crontab_path_tmp)
+    run('crontab -l >>%s' % env.crontab_path_tmp)
     set_crontab()
     remove_cron_file()
 
