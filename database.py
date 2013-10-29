@@ -29,8 +29,9 @@ def dump():
     from fabric.api import settings, sudo, env, task, run
     import datetime
 
-    # remove old backup folder and create new one
+    # ove old backup folder and create new one
     print("\nCleaning Old Backup for " + str(datetime.date.today()))
+
     with settings(warn_only = True):
         run('rm -rf ' + env.today_backup_gzip)
         run('rm -rf ' + env.today_backup_folder)
@@ -38,6 +39,7 @@ def dump():
 
     # Dump File
     print("\nDumping Database")
+
     filename = "dump.sql";
     today_backup_sql = env.today_backup_folder + '/' + filename
     with settings(warn_only = True):
