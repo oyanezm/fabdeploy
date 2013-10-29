@@ -25,13 +25,13 @@ def append():
     generate_cron_file()
 
     # append existing crontab
-    run('crontab -l >%s' % env.cron_path_tmp)
+    run('crontab -l >%s' % env.crontab_path)
     set_crontab()
     delete_cron_file()
 
 
 def set_crontab():
-    run('crontab %s' % env.cron_path_tmp)
+    run('crontab %s' % env.crontab_path)
 
 def generate_cron_file():
     """
@@ -39,8 +39,8 @@ def generate_cron_file():
     """
 
     files.upload_template(
-        filename    = env.cron_path,
-        destination = env.cron_path_tmp,
+        filename    = env.crontab_path,
+        destination = env.crontab_path_tmp,
         use_sudo    = env.use_sudo,
         context     = env
     )
