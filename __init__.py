@@ -29,7 +29,7 @@ def set_db_data(env):
         env.db_user = django_settings.DB_USER
         env.db_pass = django_settings.DB_PASSWORD
         env.db_name = django_settings.DB_NAME
-        env.url = django_settings.SITE_URL
+        env.site_url = django_settings.SITE_URL
 
     # otherwise use json settings
     else:
@@ -38,7 +38,7 @@ def set_db_data(env):
         env.db_user = json_settings['DB_USER']
         env.db_pass = json_settings['DB_PASSWORD']
         env.db_name = json_settings['DB_NAME']
-        env.url = json_settings['SITE_URL']
+        env.site_url = json_settings['SITE_URL']
 
     # SET BACKUP VARIABLES
     import datetime
