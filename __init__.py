@@ -46,7 +46,7 @@ def set_db_data(env):
     env.today_backup_gzip = env.today_backup_folder + '.tgz';
 
     # SET CRON VARS
-    env.contrab_path_tmp = env.crontab_path + '.tmp'
+    env.crontab_path_tmp = env.crontab_path + '.tmp'
 
 def env_setter(step):
     """

@@ -10,11 +10,11 @@ def configure():
     """
     configures cron jobs
     """
-    env.log_path += '/cron/execution.log',
+    env.log_path = env.log_path + '/cron/execution.log',
 
     generate_cron_file()
     set_crontab()
-    delete_cron_file()
+    remove_cron_file()
 
 @task
 def append():
@@ -25,13 +25,13 @@ def append():
     generate_cron_file()
 
     # append existing crontab
-    run('crontab -l >%s' % env.crontab_path)
+    run('crontab -l >%s' % env.crontab_path_tmp)
     set_crontab()
-    delete_cron_file()
+    remove_cron_file()
 
 
 def set_crontab():
-    run('crontab %s' % env.crontab_path)
+    run('crontab %s' % env.crontab_path_tmp)
 
 def generate_cron_file():
     """
@@ -46,5 +46,5 @@ def generate_cron_file():
     )
 
 def remove_cron_file():
-    run('rm %s' % env.cron_path_tmp)
+    run('rm %s' % env.crontab_path_tmp)
 
