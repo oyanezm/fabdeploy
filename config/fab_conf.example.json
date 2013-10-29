@@ -14,7 +14,7 @@
 
         "settings_django_package" : "foobar.config.settings",
 
-        "apache_path" : "/etc/apache2/",
+        "apache_path" : "/etc/apache2",
         "modules_path" : "~/.local",
         "bash_profile_path" : "~/.bash_profile",
 
@@ -33,6 +33,7 @@
 
         "root_path" :   "/path/to/my/project",
         "public_path" : "/path/to/my/project/public",
+        "cron_path" :   "/path/to/my/cron",
         "log_path" :    "/path/to/my/logs",
         "backup_path":  "/path/to/my/backup",
 
