@@ -21,23 +21,27 @@
         "database" : "mysql",
         "avoid_test" : false
     },
+
     "dev" : {
         "hosts" : ["localhost"],
         "password" : "psw",
 
         "home" : "/home/user/",
-        "path" : "/home/user/to/project/",
         "modules_path" :"/usr/local/bin",
 
         "wsgi_path" : "/home/user/to/project/config/django.wsgi",
 
-        "log_path" : "~/my_logs/",
-        "backup_path": "path/to/my/backup/folder/",
-        "vhost_template" : "/home/user/deploy/config/virtualhost.conf",
-        "settings_json" : "/to/my/settings.json",
+        "root_path" :   "/path/to/my/project",
+        "public_path" : "/path/to/my/project/public",
+        "log_path" :    "/path/to/my/logs",
+        "backup_path":  "/path/to/my/backup",
+
+        "vhost_template" :  "/path/to/my/virtualhost.conf",
+        "settings_json" :   "/path/to/my/settings.json",
 
         "use_sudo" : true
     },
+
     "test" : {
         "hosts" : [""],
         "password" : "",

@@ -28,7 +28,7 @@ def backup():
     # Store public files to backup folder
     print("\nStoring Public files")
     with settings(warn_only = True):
-        run('cp -r ' + env.path + ' ' + env.today_backup_folder)
+        run('cp -r ' + env.public_path + ' ' + env.today_backup_folder)
 
     # Store log files
     print("\nStoring Log Files")
