@@ -2,10 +2,8 @@ from fabdeploy.lib.utils import _AttrDict, _is_host
 from fabric.api import run,sudo,env,task 
 from fabric.contrib import files
 from fabdeploy.servers import get_server
+from pdb import set_trace as brake
 
-
-# upload tmp file
-tmp_cron_path = env.cron_path + '/crontab.tmp'
 
 @task
 def configure():
@@ -27,13 +25,13 @@ def append():
     generate_cron_file()
 
     # append existing crontab
-    run('crontab -l >%s' % tmp_cron_path)
+    run('crontab -l >%s' % env.cron_path_tmp)
     set_crontab()
     delete_cron_file()
 
 
 def set_crontab():
-    run('crontab %s' % tmp_cron_path)
+    run('crontab %s' % env.cron_path_tmp)
 
 def generate_cron_file():
     """
@@ -41,12 +39,12 @@ def generate_cron_file():
     """
 
     files.upload_template(
-        filename = env.cron_path,
-        destination = tmp_cron_path,
-        use_sudo = env.use_sudo,
-        context = env
+        filename    = env.cron_path,
+        destination = env.cron_path_tmp,
+        use_sudo    = env.use_sudo,
+        context     = env
     )
 
 def remove_cron_file():
-    run('rm %s' % tmp_cron_path)
+    run('rm %s' % env.cron_path_tmp)
 

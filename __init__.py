@@ -40,10 +40,13 @@ def set_db_data(env):
         env.db_name = json_settings['DB_NAME']
         env.site_url = json_settings['SITE_URL']
 
-    # SET BACKUP VARIABLES
+    # SET BACKUP VARS
     import datetime
     env.today_backup_folder = env.backup_path + '/' + str(datetime.date.today())
     env.today_backup_gzip = env.today_backup_folder + '.tgz';
+
+    # SET CRON VARS
+    env.cron_path_tmp = env.cron_path + '/crontab.tmp'
 
 
 def env_setter(step):
