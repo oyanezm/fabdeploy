@@ -22,14 +22,14 @@ def push():
     """
     local("git push origin master")
 
-def remote_pull():
+@task
+def pull():
     """
     pull locally from the repository
     """
     run("cd %(root_path)s; git pull origin master" % env)
 
-@task
-def pull():
+def local_pull():
     """
     pull the repository from ther server
     """
