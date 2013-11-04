@@ -1,5 +1,5 @@
 {
-    "_comments" [
+    "_comments" : [
         "in case you want to need to use an external configuration file",
         "you should set USE_FILE as TRUE and set config files in FILE_PATH"
     ],
@@ -11,7 +11,7 @@
         "DEV" : "",
         "TEST" : "",
         "LIVE" : ""
-    }
+    },
 
     "common" : {
         "_comments" : [
@@ -23,6 +23,8 @@
             "Allowed database types ´mysql´ as default and ´postgres´"
         ],
 
+        "database" : "mysql",
+        "avoid_test" : false
         "admin" : "foo@bar.com",
         "project_name" : "foobar",
 
@@ -32,13 +34,18 @@
         "modules_path" : "~/.local",
         "bash_profile_path" : "~/.bash_profile",
 
-        "database" : "mysql",
-        "avoid_test" : false
     },
 
     "dev" : {
         "hosts" : ["localhost"],
         "password" : "psw",
+
+        "db_host" : "localhost",
+        "db_name" : "foobar",
+        "db_user" : "foo",
+        "db_pass" : "bar",
+
+        "site_url" : "foo.bar.com"
 
         "home" : "/home/user/",
         "modules_path" :"/usr/local/bin",
@@ -52,27 +59,10 @@
         "backup_path":  "/path/to/my/backups",
 
         "vhost_template" :  "/path/to/my/virtualhost.conf",
-        "settings_json" :   "/path/to/my/settings.json",
 
         "use_sudo" : true
     },
 
-    "test" : {
-        "hosts" : [""],
-        "password" : "",
-
-        "home" : "",
-        "path" : "",
-        "modules_path" : "/home/user/.local/",
-
-        "wsgi_path" : "/home/user/to/project/config/",
-
-        "log_path" : "~/my_logs/",
-        "vhost_template" : "/home/user/deploy/config/virtualhost.conf",
-        "settings_json" : "/to/my/settings.json",
-
-        "use_sudo" : true
-    },
-    "live" :  {
-    }
+    "test" : {},
+    "live" :  {}
 }
