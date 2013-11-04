@@ -43,8 +43,8 @@ def dump():
     filename = "dump.sql";
     today_backup_sql = env.today_backup_folder + '/' + filename
     with settings(warn_only = True):
-        # dump sql with or withour password
-        if env.db_pass: query = 'mysqldump -u %s -p %s > %s ';
+        # dump sql with or withour password TODO fix patch with db_pass
+        if env.db_pass:     query = "mysqldump -u %s --password='"+ env.db_pass +"' %s > %s ";
         else:               query = 'mysqldump -u %s %s > %s ';
         sudo(query % (env.db_user,env.db_name,today_backup_sql));
 
