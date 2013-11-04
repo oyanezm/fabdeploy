@@ -1,13 +1,19 @@
 {
     "_comments" [
         "in case you want to need to use an external configuration file",
-        "you should set USE_FILE as TRUE and set config file in FILE_PATH"
+        "you should set USE_FILE as TRUE and set config files in FILE_PATH"
     ],
 
     "USE_FILE" : false,
-    "FILE_PATH" : "",
 
-    "globals" : {
+    "FILE_PATH" : {
+        "COMMON": "",
+        "DEV" : "",
+        "TEST" : "",
+        "LIVE" : ""
+    }
+
+    "common" : {
         "_comments" : [
             "In case you dont want to use Django settings",
             "then ´settings_django_package´ must be set to ´false´",
