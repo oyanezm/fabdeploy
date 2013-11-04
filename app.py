@@ -47,7 +47,6 @@ def install_requirements():
     with cd(env.root_path):
         with_virtualenv_remote('pip install -r requirements.txt')
 
-@task
 def setup():
     """
     setup a fresh virtualenv as well as a few useful directories
@@ -56,7 +55,7 @@ def setup():
     from fabdeploy import virtualenvwrapper as venvwrapper
     from fabdeploy.lib.utils import _AttrDict
     conf = _AttrDict(
-        bash_profile = env.bash_profile,
+        bash_profile = env.bash_profile_path,
         modules = env.modules_path,
         )
     if env.use_sudo:
