@@ -33,6 +33,7 @@
         "apache_path" : "/etc/apache2",
         "modules_path" : "~/.local",
         "bash_profile_path" : "~/.bash_profile",
+        "crontab_origin_relative_path" :   "relative/path/to/fabfile.py",
 
     },
 

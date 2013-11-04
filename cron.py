@@ -38,8 +38,9 @@ def generate_cron_file():
     creates temporary cron file
     """
 
+    import os
     files.upload_template(
-        filename    = env.crontab_path,
+        filename    = os.path.abspath(env.crontab_origin_relative_path),
         destination = env.crontab_path_tmp,
         use_sudo    = env.use_sudo,
         context     = env
