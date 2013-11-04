@@ -17,7 +17,7 @@ def set_db_data(env):
     """
     set database variables to env
     """
-    # if using django load from settings
+    # if using django override db settings
     if env.settings_django_package:
 
         import_non_local('django','django_std')
@@ -30,15 +30,6 @@ def set_db_data(env):
         env.db_pass = django_settings.DB_PASSWORD
         env.db_name = django_settings.DB_NAME
         env.site_url = django_settings.SITE_URL
-
-    # otherwise use json settings
-    else:
-        json_settings = json.loads(open(env.settings_json).read())
-
-        env.db_user = json_settings['DB_USER']
-        env.db_pass = json_settings['DB_PASSWORD']
-        env.db_name = json_settings['DB_NAME']
-        env.site_url = json_settings['SITE_URL']
 
     # SET BACKUP VARS
     import datetime
@@ -57,8 +48,22 @@ def env_setter(step):
         sets the host env
         """
         env.step = step
+
+        # if external file is provided then override it
+        if config['USE_FILE']:
+            import json
+            Path = config['FILE_PATH']
+
+            config['common'] = json.loads(open(Path['COMMON']).read())
+            config['dev']   = json.loads(open(Path['DEV']).read())
+            config['test']  = json.loads(open(Path['TEST']).read())
+            config['live']  = json.loads(open(Path['LIVE']).read())
+
+        # set var to env
         utils.copy_keys(env,config[env.step])
-        utils.copy_keys(env,config['globals'])
+        utils.copy_keys(env,config['common'])
+
+        # set database credentials
         set_db_data(env)
     return set_in_scope
 
