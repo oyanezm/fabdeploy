@@ -35,6 +35,10 @@ def dump():
     with settings(warn_only = True):
         run('rm -rf ' + env.today_backup_gzip)
         run('rm -rf ' + env.today_backup_folder)
+
+        # create backup folder structure
+        run('mkdir '  + env.year_backup_folder)
+        run('mkdir '  + env.month_backup_folder)
         run('mkdir '  + env.today_backup_folder)
 
     # Dump File

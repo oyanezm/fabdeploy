@@ -32,8 +32,15 @@ def set_db_data(env):
         env.site_url = django_settings.SITE_URL
 
     # SET BACKUP VARS
-    import datetime
-    env.today_backup_folder = env.backup_path + '/' + str(datetime.date.today())
+    from datetime import date
+
+    day     = str(date.today()).split('-')[2]
+    month   = str(date.today()).split('-')[1]
+    year    = str(date.today()).split('-')[0]
+
+    env.year_backup_folder  = env.backup_path + '/' + year
+    env.month_backup_folder = env.year_backup_folder + '/' + month
+    env.today_backup_folder = env.month_backup_folder + '/' + day
     env.today_backup_gzip = env.today_backup_folder + '.tgz';
 
     # SET CRON VARS
