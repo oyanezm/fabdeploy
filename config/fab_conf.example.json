@@ -7,10 +7,10 @@
     "USE_FILE" : false,
 
     "FILE_PATH" : {
-        "COMMON": "",
-        "DEV" : "",
-        "TEST" : "",
-        "LIVE" : ""
+        "COMMON":   "",
+        "DEV" :     "",
+        "TEST" :    "",
+        "LIVE" :    ""
     },
 
     "common" : {
@@ -38,6 +38,12 @@
     },
 
     "dev" : {
+
+        "_comments" : [
+            "In case you have more than one public folder you",
+            "must provide a list of strings to ´public_path´"
+        ],
+
         "hosts" : ["localhost"],
         "password" : "psw",
 
@@ -54,7 +60,10 @@
         "wsgi_path" : "/home/user/to/project/config/django.wsgi",
 
         "root_path" :   "/path/to/my/project",
-        "public_path" : "/path/to/my/project/public",
+        "public_path" : [
+            "/path/to/my/project_1/public",
+            "/path/to/my/project_2/public"
+        ],
         "crontab_path" :"/path/to/my/crontab",
         "log_path" :    "/path/to/my/logs",
         "backup_path":  "/path/to/my/backups",
