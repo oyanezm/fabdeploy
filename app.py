@@ -11,8 +11,8 @@ def backup_to_gzip():
     with settings(warn_only = True):
         run('tar -cvzpf ' + env.today_backup_gzip + ' -C ' + env.today_backup_folder + ' . >/dev/null 2>&1')
         run('rm -rf ' + env.today_backup_folder)
-        run('rm -f ' + env.log_path + '/apache/access.log')
-        run('rm -f ' + env.log_path + '/apache/error.log')
+        run('rm -f '+ env.log_path + '/apache/*')
+        run("echo '*\n!.gitignore' > "+ env.log_path + "/apache/.gitignore")
         apache.restart()
 
 @task
@@ -23,12 +23,13 @@ def backup():
     from fabdeploy import database as db
 
     # dump sql
-    db.dump()
+#    db.dump()
 
     # Store public files to backup folder
     print("\nStoring Public files")
     with settings(warn_only = True):
-        run('cp -r ' + env.public_path + ' ' + env.today_backup_folder)
+        for public_path in env.public_path:
+            run('cp -r ' + public_path + ' ' + env.today_backup_folder)
 
     # Store log files
     print("\nStoring Log Files")
