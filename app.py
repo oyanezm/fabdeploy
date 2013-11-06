@@ -23,7 +23,7 @@ def backup():
     from fabdeploy import database as db
 
     # dump sql
-#    db.dump()
+    db.dump()
 
     # Store public files to backup folder
     print("\nStoring Public files")
